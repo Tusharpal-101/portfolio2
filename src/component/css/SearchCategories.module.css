@@ -1,0 +1,220 @@
+/* Container */
+.section {
+  max-width: 1100px;
+  margin: 0 auto 2rem auto;         /* center + bottom gap */
+  padding: 8rem 1rem 2rem 1rem;     /* ✅ top padding so navbar ke niche space rahe */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  background-color: transparent;
+}
+
+/* Search Wrapper & Bar */
+.searchWrapper {
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center; /* ✅ vertical center alignment */
+  gap: 0.75rem;        /* ✅ proper spacing between input & button */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease, border-color 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Search Icon */
+.searchIcon {
+  color: #8b5cf6;
+  margin-right: 0.5rem;
+}
+
+/* Input Field */
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  position: relative;
+  padding: 0.4rem 0;
+  overflow: hidden;
+}
+
+/* Wave underline for input on hover/focus */
+.input::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6);
+  animation: wave 2s linear infinite;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.searchBar:hover .input::after,
+.input:focus::after {
+  opacity: 1;
+}
+
+/* Search Button */
+.searchBtn {
+  margin-top: 0;               
+  padding: 10px 24px;          
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(56, 189, 248, 0.15); /* Glass look */
+  border: 2px solid #38bdf8;
+  border-radius: 50px;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  transition: all 0.3s ease-in-out;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchBtn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(56, 189, 248, 0.4),
+    transparent
+  );
+  transition: all 0.5s;
+}
+
+.searchBtn:hover::before {
+  left: 100%;
+}
+
+.searchBtn:hover {
+  background: rgba(56, 189, 248, 0.25);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.8),
+              0 0 40px rgba(14, 165, 233, 0.6);
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Categories Grid */
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Card Styling */
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.5s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hologram border shine on card hover */
+.card:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 
+    0 0 8px #ec4899,
+    0 0 16px #8b5cf6,
+    0 0 24px #3b82f6,
+    0 0 32px #ec4899,
+    0 0 40px #8b5cf6;
+  border-color: transparent;
+  animation: borderShine 2.5s linear infinite;
+}
+
+/* Icon */
+.icon {
+  margin-bottom: 0.8rem;
+  color: #8b5cf6;
+}
+
+/* Title */
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Wave underline for title */
+.title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6);
+  animation: wave 2s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card:hover .title::after,
+.title:hover::after {
+  opacity: 1;
+}
+
+/* Wave animation */
+@keyframes wave {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Border shine animation for hologram effect */
+@keyframes borderShine {
+  0%, 100% {
+    box-shadow: 
+      0 0 8px #ec4899,
+      0 0 16px #8b5cf6,
+      0 0 24px #3b82f6,
+      0 0 32px #ec4899,
+      0 0 40px #8b5cf6;
+  }
+  50% {
+    box-shadow: 
+      0 0 16px #ec4899,
+      0 0 32px #8b5cf6,
+      0 0 48px #3b82f6,
+      0 0 64px #ec4899,
+      0 0 80px #8b5cf6;
+  }
+}

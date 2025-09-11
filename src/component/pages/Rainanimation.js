@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../component/css/banner.module.css";
+import styles from "../pages/css/rainanimation.module.css";
 
 // Raindrop component
 const Raindrop = ({ left, delay, duration }) => {
@@ -30,7 +30,7 @@ const Dot = ({ top, left, delay, duration }) => {
   );
 };
 
-const RainBanner = () => {
+const RainBackground = () => {
   // Raindrops
   const raindrops = Array.from({ length: 150 }).map(() => ({
     left: Math.random() * 100,
@@ -72,15 +72,8 @@ const RainBanner = () => {
           />
         ))}
       </div>
-
-      {/* Content */}
-      <div className={styles.content}>
-        <h1>Welcome to Rainy Banner</h1>
-        <p> We build modern websites and web apps with stunning UI/UX design. Let's bring your ideas to life! 🚀</p>
-      </div>
-        <button className={styles.ctaBtn}>Hire Me</button>
     </div>
   );
 };
 
-export default RainBanner;
+export default RainBackground;

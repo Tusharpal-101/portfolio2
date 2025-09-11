@@ -1,35 +1,38 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { NavLink } from "react-router-dom"; // 👈 yeh import zaroori hai
 import styles from "../component/css/navbar.module.css";
 
 export default function Navbar() {
-  const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
 
   const links = [
-    { name: "Home", id: "home" },
-    { name: "About", id: "about" },
-    { name: "Services", id: "services" },
-    { name: "Contact", id: "contact" },
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Service", path: "/service" },
+    { name: "Contact", path: "/contact" },
+   
   ];
 
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContainer}>
-        
         {/* Left - Logo */}
         <div className={styles.logo}>MyLogo</div>
 
         {/* Center - Links (Desktop) */}
         <div className={`${styles.links} ${styles.desktopOnly}`}>
           {links.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => setActive(link.id)}
-              className={`${styles.link} ${active === link.id ? styles.active : ""}`}
+            <NavLink
+              key={link.path}
+              to={link.path}
+              className={({ isActive }) =>
+                `${styles.link} ${isActive ? styles.active : ""}`
+              }
+              end
             >
               {link.name}
-            </button>
+            </NavLink>
           ))}
         </div>
 
@@ -41,7 +44,11 @@ export default function Navbar() {
         {/* Mobile Hamburger */}
         <div className={styles.mobileOnly}>
           <button onClick={() => setOpen(!open)}>
-            {open ? <X size={28} className={styles.icon} /> : <Menu size={28} className={styles.icon} />}
+            {open ? (
+              <X size={28} className={styles.icon} />
+            ) : (
+              <Menu size={28} className={styles.icon} />
+            )}
           </button>
         </div>
       </div>
@@ -50,18 +57,18 @@ export default function Navbar() {
       {open && (
         <div className={styles.mobileMenu}>
           {links.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => {
-                setActive(link.id);
-                setOpen(false);
-              }}
-              className={`${styles.link} ${active === link.id ? styles.active : ""}`}
+            <NavLink
+              key={link.path}
+              to={link.path}
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `${styles.link} ${isActive ? styles.active : ""}`
+              }
+              end
             >
               {link.name}
-            </button>
+            </NavLink>
           ))}
-
           <button className={styles.signupMobile}>Sign Up</button>
         </div>
       )}

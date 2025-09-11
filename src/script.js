@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../component/css/banner.module.css";
+import styles from "../src/component/css/script.module.css";
 
 // Raindrop component
 const Raindrop = ({ left, delay, duration }) => {

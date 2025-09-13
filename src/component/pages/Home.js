@@ -9,6 +9,9 @@ import Contact from "../contact/Contact"
 import About from '../about/About'
 import ShaderCanvas from "../shadecanvas/ShaderCanvas"
 
+// import Login from '../login/Login.jsx'
+
+
 const Home = () => {
   return (
     <>
@@ -18,7 +21,8 @@ const Home = () => {
       <CardSection /> 
       <SocialSidebar/> 
       <About/>
-      <ShaderCanvas/>  
+      <ShaderCanvas/> 
+      {/* <Login/>  */}
       {/* <Contact/>
        {/* matches import */}
     </>

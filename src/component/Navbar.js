@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { NavLink } from "react-router-dom"; // 👈 yeh import zaroori hai
+import { NavLink } from "react-router-dom"; 
 import styles from "../component/css/navbar.module.css";
 
 export default function Navbar() {
@@ -11,7 +11,6 @@ export default function Navbar() {
     { name: "About", path: "/about" },
     { name: "Service", path: "/service" },
     { name: "Contact", path: "/contact" },
-   
   ];
 
   return (
@@ -38,7 +37,9 @@ export default function Navbar() {
 
         {/* Right - Signup (Desktop) */}
         <div className={styles.desktopOnly}>
-          <button className={styles.signup}>Sign Up</button>
+          <NavLink to="/login" className={styles.signup}>
+            Sign Up
+          </NavLink>
         </div>
 
         {/* Mobile Hamburger */}
@@ -69,7 +70,15 @@ export default function Navbar() {
               {link.name}
             </NavLink>
           ))}
-          <button className={styles.signupMobile}>Sign Up</button>
+
+          {/* Mobile Signup */}
+          <NavLink 
+            to="/login" 
+            className={styles.signupMobile} 
+            onClick={() => setOpen(false)}
+          >
+            Sign Up
+          </NavLink>
         </div>
       )}
     </nav>

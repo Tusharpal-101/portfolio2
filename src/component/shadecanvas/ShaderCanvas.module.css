@@ -203,6 +203,10 @@ a {
 .miniCardGrid::-webkit-scrollbar-button {
   display: none;
 }
+.miniCardImg{
+  max-height: 30vh;
+  max-width: 30vw;
+}
 
 /* ---------------------------------
   Responsive CSS for mobile devices
@@ -263,4 +267,41 @@ a {
     margin-left: 0;
     box-shadow: none;
   }
+}
+
+
+/* आपके मौजूदा CSS के नीचे यह कोड जोड़ें */
+.scrollButtons {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 10px;
+    z-index: 4; /* Make sure buttons are above other content */
+}
+
+.scrollButton {
+    background-color: #292727;
+    color: var(--text-color);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+
+.scrollButton:hover {
+    background-color: #555;
+}
+
+/* ---------------------------------
+  Responsive CSS for mobile devices
+  --------------------------------- */
+@media (max-width: 768px) {
+    /* Existing mobile CSS here... */
+
+    .scrollButtons {
+        display: none; /* Hide buttons on small screens if you prefer */
+    }
 }

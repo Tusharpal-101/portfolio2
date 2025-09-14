@@ -15,13 +15,15 @@ import Fotter from "./component/fotter/Fotter"
 import SocialSidebar from './component/pages/SocialSidebar';
 import Login from './component/login/Login.jsx'
 import Signup from './component/signup/Signup.jsx'
+import Card from "../src/component/pages/card/Card"
 
 function App() {
   return (
     <>
+      <Rainanimation/> 
      <Router>
           <Navbar/>
-           <Rainanimation/> 
+           
            <SocialSidebar/> 
       <Routes>
         <Route path="/" element={<Home/> } /> 
@@ -31,6 +33,7 @@ function App() {
             <Route path="/service" element={<SearchCategories/> } /> 
             <Route path="/login" element={<Login/> } /> 
              <Route path="/Signup" element={<Signup/> } /> 
+             <Route path="/category/:name" element={<Card />} />
            {/* 404 Page */}
       </Routes>
       <Fotter/>

@@ -1,11 +1,19 @@
 /* Container */
 .section {
   max-width: 1100px;
-  margin: 0 auto 2rem auto;         /* center + bottom gap */
-  padding: 8rem 1rem 2rem 1rem;     /* ✅ top padding so navbar ke niche space rahe */
+  margin: 0 auto 2rem auto;         
+  padding: 8rem 1rem 2rem 1rem;     
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
   background-color: transparent;
+  box-sizing: border-box;
+}
+
+/* Desktop container margin 100px each side */
+@media (min-width: 1200px) {
+  .section {
+    max-width: calc(100% - 200px); /* 100px left + 100px right */
+  }
 }
 
 /* Search Wrapper & Bar */
@@ -16,8 +24,8 @@
 
 .searchBar {
   display: flex;
-  align-items: center; /* ✅ vertical center alignment */
-  gap: 0.75rem;        /* ✅ proper spacing between input & button */
+  align-items: center;
+  gap: 0.75rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
   border-radius: 1rem;
@@ -70,12 +78,12 @@
 
 /* Search Button */
 .searchBtn {
-  margin-top: 0;               
-  padding: 10px 24px;          
+  margin-top: 0;
+  padding: 10px 24px;
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
-  background: rgba(56, 189, 248, 0.15); /* Glass look */
+  background: rgba(56, 189, 248, 0.15);
   border: 2px solid #38bdf8;
   border-radius: 50px;
   backdrop-filter: blur(6px);
@@ -84,11 +92,11 @@
   overflow: hidden;
   z-index: 2;
   transition: all 0.3s ease-in-out;
-  text-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
 }
 
 .searchBtn::before {
@@ -118,21 +126,26 @@
   transform: translateY(-3px) scale(1.05);
 }
 
-/* Categories Grid */
+/* Categories Grid: max 4 cards per row */
 .categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* default desktop */
   gap: 1.5rem;
 }
 
-/* Card Styling */
+/* Card Styling with gradient transparent background */
 .card {
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(236, 72, 153, 0.25),
+    rgba(139, 92, 246, 0.25),
+    rgba(59, 130, 246, 0.25)
+  );
   backdrop-filter: blur(12px);
   border-radius: 1rem;
   padding: 1.5rem;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.5s ease;
   cursor: pointer;
@@ -216,5 +229,28 @@
       0 0 48px #3b82f6,
       0 0 64px #ec4899,
       0 0 80px #8b5cf6;
+  }
+}
+
+/* Responsive Breakpoints */
+
+/* Tablets: 768px - 1024px: 2-3 cards per row */
+@media (max-width: 1024px) {
+  .categories {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Small tablets/mobiles: 480px - 767px: 2 cards per row */
+@media (max-width: 767px) {
+  .categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: below 480px: 1 card per row */
+@media (max-width: 480px) {
+  .categories {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

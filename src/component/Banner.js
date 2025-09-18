@@ -1,84 +1,45 @@
 import React from "react";
 import styles from "../component/css/banner.module.css";
-
-// Raindrop component
-const Raindrop = ({ left, delay, duration }) => {
-  return (
-    <div
-      className={styles.raindrop}
-      style={{
-        left: `${left}%`,
-        animationDelay: `${delay}s`,
-        animationDuration: `${duration}s`,
-      }}
-    />
-  );
-};
-
-// Dot component
-const Dot = ({ top, left, delay, duration }) => {
-  return (
-    <div
-      className={styles.dot}
-      style={{
-        top: `${top}%`,
-        left: `${left}%`,
-        animationDelay: `${delay}s`,
-        animationDuration: `${duration}s`,
-      }}
-    />
-  );
-};
+import { ReactTyped } from "react-typed";
 
 const RainBanner = () => {
-  // Raindrops
-  const raindrops = Array.from({ length: 150 }).map(() => ({
-    left: Math.random() * 100,
-    delay: Math.random() * 5,
-    duration: 2 + Math.random() * 3,
-  }));
-
-  // Dots (floating)
-  const dots = Array.from({ length: 30 }).map(() => ({
-    top: Math.random() * 100,
-    left: Math.random() * 100,
-    delay: Math.random() * 5,
-    duration: 5 + Math.random() * 10,
-  }));
+  const strings = [
+    `<span class="emoji rocket"></span> We Build Scalable Web Apps`,
+    `<span class="emoji paint"></span> Crafting Stunning UI/UX`,
+    `<span class="emoji lightning"></span> Empowering Startups`,
+  ].map(str => str.replace(/class=/g, "className=")); // Fix for React className
 
   return (
     <div className={styles.banner}>
-      {/* Rain Layer */}
-      <div className={styles.rainLayer}>
-        {raindrops.map((drop, i) => (
-          <Raindrop
-            key={`drop-${i}`}
-            left={drop.left}
-            delay={drop.delay}
-            duration={drop.duration}
-          />
-        ))}
-      </div>
-
-      {/* Dot Layer */}
-      <div className={styles.dotLayer}>
-        {dots.map((dot, i) => (
-          <Dot
-            key={`dot-${i}`}
-            top={dot.top}
-            left={dot.left}
-            delay={dot.delay}
-            duration={dot.duration}
-          />
-        ))}
-      </div>
-
-      {/* Content */}
       <div className={styles.content}>
-        <h1>Welcome to Rainy Banner</h1>
-        <p> We build modern websites and web apps with stunning UI/UX design. Let's bring your ideas to life! 🚀</p>
+        <h1>
+          Welcome to <span className={styles.highlight}>TechNova</span>
+        </h1>
+
+        <h2 className={styles.typingText}>
+          <ReactTyped
+            strings={strings}
+            typeSpeed={60}
+            backSpeed={40}
+            loop
+            smartBackspace
+            showCursor
+            cursorChar="|"
+            contentType="html"
+          />
+        </h2>
+
+        <p>
+          TechNova is a next-gen startup transforming ideas into powerful
+          digital products. From websites to full-scale web applications,
+          we deliver innovation with speed and style.
+        </p>
+
+        <div className={styles.btnGroup}>
+          <button className={styles.ctaBtn}>Get Started</button>
+          <button className={styles.secondaryBtn}>See Our Work</button>
+        </div>
       </div>
-        <button className={styles.ctaBtn}>Hire Me</button>
     </div>
   );
 };

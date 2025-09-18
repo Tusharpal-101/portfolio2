@@ -10,7 +10,8 @@ import About from '../about/About'
 import ShaderCanvas from "../shadecanvas/ShaderCanvas"
 import Card from "./card/Card.js"
 // import Login from '../login/Login.jsx'
-
+import Faq from "../faq/Faq.jsx"
+// import PrivacyPolicy from '../privacypolicy/PrivacyPolicy.jsx'
 
 const Home = () => {
   return (
@@ -20,6 +21,9 @@ const Home = () => {
         <Simplecard/> 
       <CardSection /> 
       <SocialSidebar/> 
+      <Faq/>
+      {/* <PrivacyPolicy/> */}
+      
       <About/>
       <ShaderCanvas/> 
      

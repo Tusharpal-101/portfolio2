@@ -8,22 +8,25 @@ export default function SimpleCard() {
       <div className={styles.contentBox}>
         <div className={styles.text}>
           <h1>
-            Hi, I’m <span style={{ color: "#00ff84" }}>Tushar Pal</span> <br />
-            A Passionate Web Developer
+            Hi, We’re <span style={{ color: "#00ff84" }}>FreelanceX</span> <br />
+            Your Creative Web Partner
           </h1>
           <p>
-            I help businesses and startups build modern, responsive, and user-friendly
-            websites using <strong>ReactJS</strong>, <strong>JavaScript</strong>, and <strong>UI/UX design</strong>.
-            <br />
-            From clean code to creative designs — I bring your ideas to life.
+            We are a small freelance startup helping businesses with 
+            <strong> Web Development</strong>, <strong>UI/UX Design</strong>, 
+            and <strong>Branding</strong>.  
+            Our goal is to create modern, responsive, and impactful websites 
+            that connect you with your clients.
           </p>
+
           <div className={styles.buttons}>
-            <button className={styles.primaryBtn}>View My Work</button>
-            <button className={styles.secondaryBtn}>Hire Me</button>
+            <button className={styles.primaryBtn}>View Work</button>
+            <button className={styles.secondaryBtn}>Hire Us</button>
           </div>
         </div>
+
         <div className={styles.imageBox}>
-          <img src={personImg} alt="Freelancer" />
+          <img src={personImg} alt="Freelance Team" />
         </div>
       </div>
     </section>

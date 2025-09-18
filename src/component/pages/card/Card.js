@@ -1,65 +1,159 @@
-import React, { useMemo } from "react";
+// src/component/pages/card/CardSection.jsx
+import React, { useMemo, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import styles from "./card.module.css";
 import { cards } from "../card/Carddata";
 
-// Simple card component
-const Card = React.memo(({ card }) => (
-  <div className={`${styles.card} ${styles[card.color]}`}>
-    <div className={styles.cardImage}>
-      <img src={card.img} alt={card.title} loading="lazy" />
-    </div>
-    <div className={styles.cardBody}>
-      <h3>{card.title}</h3>
-      <p>{card.subtitle}</p>
-      <div className={styles.progress}>
-        <span>Progress</span>
-        <div className={styles.progressBar}>
-          <div className={styles.fill} style={{ width: `${card.progress}%` }} />
+const Card = ({ card }) => {
+  const cardRef = useRef(null);
+
+  // Framer motion values for tilt
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+
+  // Stronger glowing shadow effect
+  const boxShadow = useTransform(
+    [rotateX, rotateY],
+    ([latestX, latestY]) =>
+      `0px ${-latestX}px ${20 + Math.abs(latestX + latestY)}px rgba(0,0,0,0.5),
+       0px 0px 30px rgba(255,255,255,0.15)`
+  );
+
+  const handleMouseMove = (e) => {
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left; // X inside card
+    const y = e.clientY - rect.top;  // Y inside card
+
+    const rotateYValue = ((x / rect.width) - 0.5) * 35; // -17.5 to 17.5 deg
+    const rotateXValue = ((y / rect.height) - 0.5) * -35; // -17.5 to 17.5 deg
+
+    rotateX.set(rotateXValue);
+    rotateY.set(rotateYValue);
+  };
+
+  const handleMouseLeave = () => {
+    rotateX.set(0);
+    rotateY.set(0);
+  };
+
+  return (
+    <motion.div
+      className={styles.card}
+      ref={cardRef}
+      style={{ rotateX, rotateY, boxShadow, perspective: 1200 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileHover={{ scale: 1.07 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 130, damping: 12 }}
+    >
+      {/* Card Image */}
+      <div className={styles.cardInner}>
+        <div className={styles.box}>
+          <div className={styles.imgBox}>
+            <img src={card.img} alt={card.title} loading="lazy" />
+          </div>
+          {card.liveLink && (
+            <div className={styles.icon}>
+              <a
+                href={card.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.iconBox}
+              >
+                <span>LIVE</span>
+              </a>
+            </div>
+          )}
         </div>
-        <span>{card.progress}%</span>
       </div>
-    </div>
-    <div className={styles.cardFooter}>
-      <a
-        href="#"
-        className={styles.btnLive}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Live
-      </a>
-    </div>
-  </div>
-));
+
+      {/* Card Content */}
+      <div className={styles.content}>
+        <h3>{card.title}</h3>
+
+        {/* Subtitle + CODE button */}
+        <div className={styles.subtitleRow}>
+          <p>{card.subtitle}</p>
+          {card.codeLink && (
+            <a
+              href={card.codeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.codeButton}
+            >
+              CODE
+            </a>
+          )}
+        </div>
+
+        {/* Technologies / Tags */}
+        {card.technologies && card.technologies.length > 0 && (
+          <div className={styles.tagsRow}>
+            {card.technologies.map((tech, idx) => (
+              <span key={idx} className={styles.techTag}>
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+};
 
 export default function CardSection() {
   const { name } = useParams();
   const categoryName = (name || "").toLowerCase();
 
-  // Filter cards or show all
+  const categoryMap = {
+    design: "design",
+    development: "web development",
+    marketing: "marketing",
+    writing: "writing",
+  };
+
   const filteredCards = useMemo(() => {
-    if (!categoryName || categoryName === "all") {
-      return cards; // sab cards dikhayega
-    }
+    if (!categoryName || categoryName === "all") return cards;
+    const actualCategory = categoryMap[categoryName] || categoryName;
     return cards.filter(
-      (card) => (card.category || "").toLowerCase() === categoryName
+      (card) => (card.category || "").toLowerCase() === actualCategory
     );
   }, [categoryName]);
 
   return (
     <section className={styles.cardSection}>
       <h2 className={styles.heading}>
-        {categoryName === "all" ? "All Projects" : `${name} Projects`}
+        {categoryName === "all"
+          ? "All Projects"
+          : name
+          ? `${name} Projects`
+          : "Projects"}
       </h2>
 
-      <div className={styles.cardsGrid}>
-        {filteredCards.length ? (
-          filteredCards.map((card) => <Card key={card.id} card={card} />)
+      <motion.div
+        className={styles.cardsGrid}
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: 0.15 },
+          },
+        }}
+      >
+        {filteredCards.length > 0 ? (
+          filteredCards.map((card) => (
+            <Card key={card.id} card={card} />
+          ))
         ) : (
-          <p style={{ color: "#fff" }}>No projects found for this category.</p>
+          <p style={{ color: "#fff", fontSize: "1.2rem" }}>
+            ⚠ No projects found for this category.
+          </p>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 }

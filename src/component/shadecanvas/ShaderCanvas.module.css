@@ -37,25 +37,37 @@ a {
   max-width: 1600px;
   margin: 0 auto;
   padding: 0 60px;
+
+  /* Glassmorphism style */
+  background: rgba(0, 0, 0, 0.4); /* transparent black */
+  backdrop-filter: blur(6px);    /* blur effect */
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  border-radius: 20px;            /* optional rounded edges */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); /* depth */
 }
+
 
 .postSliders {
   padding-top: calc(60px * 1.5);
+  background-color: transparent;
 }
 
 .sectionHeading {
   font-weight: 800;
   font-size: var(--heading-font-size);
-  margin-bottom: -6vw;
+  margin-bottom: -5vw;
 }
 
 .postSlider {
-  background: var(--background-color);
+  background: rgba(0, 0, 0, 0.5); /* black transparent */
+  backdrop-filter: blur(px);    /* blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
   box-shadow: var(--card-shadow);
   display: flex;
   margin: 0 0 var(--card-margin) 0;
   padding: 0 32px 32px;
   position: relative;
+  border-radius: 12px; /* thoda rounded look ke liye */
 }
 
 .postSliderHeader {
@@ -111,6 +123,7 @@ a {
 
 .miniCardGrid {
   padding: 3rem 0 3rem 2rem;
+
   display: flex;
   overflow-x: scroll;
   gap: 1rem;
@@ -123,13 +136,22 @@ a {
   box-shadow: -2rem 0 3rem -2rem #000;
   padding: var(--card-padding);
   border-radius: var(--mini-card-border-radius);
-  background: linear-gradient(85deg, #434343, #262626);
+  background: linear-gradient(145deg, #2a2a2a, #1c1c1c); /* thoda soft black */
   color: var(--text-color);
   display: flex;
   flex-direction: column;
-  transition: 0.2s;
+  transition: 0.3s ease;
   cursor: pointer;
 }
+
+/* Hover effect for better contrast */
+.miniCard:hover {
+  background: linear-gradient(145deg, #2c2c2c, #181818); /* rich dark gradient */
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 
+              inset 0 0 8px rgba(255, 255, 255, 0.1); /* inner shine */
+}
+
 
 .miniCard:not(:first-child) {
   margin-left: -130px;

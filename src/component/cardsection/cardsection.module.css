@@ -1,6 +1,8 @@
 /* Reset */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* Container */
@@ -8,7 +10,7 @@
   position: relative;
   width: 100vw;
   min-height: 100vh;
-  background: transparent; /* solid black */
+  background: transparent;
   color: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 2rem 1rem;
@@ -22,8 +24,8 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4); /* more transparent black */
-  backdrop-filter: blur(15px);    /* stronger blur */
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   z-index: 0;
 }
@@ -31,7 +33,7 @@
 /* Grid */
 .trade-grid {
   position: relative;
-  z-index: 1; /* keep content above blurred background */
+  z-index: 1;
   display: grid;
   max-width: 1100px;
   width: 100%;
@@ -55,48 +57,62 @@
 }
 
 .card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-5px);
   box-shadow:
-    0 0 8px #ec4899,
-    0 0 16px #8b5cf6,
-    0 0 24px #3b82f6,
-    0 0 32px #ec4899,
-    0 0 40px #8b5cf6;
+    0 0 4px rgba(236, 72, 153, 0.6),   /* pink */
+    0 0 8px rgba(139, 92, 246, 0.5),   /* purple */
+    0 0 12px rgba(59, 130, 246, 0.4);  /* blue */
   border-color: transparent;
 }
 
-/* Large card styling */
+
+/* Large card (All Projects) */
 .card-large {
   grid-column: span 2;
+  display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   padding: 2rem;
   gap: 2rem;
 }
 
 /* Text side of large card */
 .card-text {
+  margin: 10rem,0;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Heading top, actions bottom */
+  align-items: flex-start;
+  text-align: left;
+  padding: 0.5rem 0;
 }
 
 .card-large h2 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .card-large p {
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   color: #aaa;
+  line-height: 1.5;
+}
+
+/* Button + Learn More inline */
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;           /* Button aur link ke beech ka gap */
+  margin-top: auto;     /* Bottom align */
 }
 
 /* CTA Button */
 .ctaBtn {
-  margin-top: 1rem;
-  padding: 14px 36px;
-  font-size: 1.2rem;
-  margin-right: 20px;
+  padding: 12px 28px;
+  font-size: 1rem;
   font-weight: bold;
   color: #fff;
   background: rgba(56, 189, 248, 0.15);
@@ -112,26 +128,6 @@
   box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
 }
 
-.ctaBtn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 200%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(56, 189, 248, 0.4),
-    transparent
-  );
-  transition: all 0.5s;
-}
-
-.ctaBtn:hover::before {
-  left: 100%;
-}
-
 .ctaBtn:hover {
   background: rgba(56, 189, 248, 0.25);
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.8),
@@ -139,11 +135,37 @@
   transform: translateY(-3px) scale(1.05);
 }
 
+/* Learn More link */
+.learnMore {
+  color: #38bdf8;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.learnMore:hover {
+  color: #22c55e;
+  text-decoration: underline;
+}
+
 /* Image side of large card */
+.card-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .card-image img {
-  width: 250px;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
   border-radius: 1rem;
   object-fit: contain;
+  display: block;
 }
 
 /* Small cards */
@@ -161,25 +183,11 @@
 
 .card-small img {
   width: 100%;
-  border-radius: 1rem;
-  margin-bottom: 0.8rem;
-  object-fit: contain;
-}
-
-/* Learn more links */
-.learnMore {
-  color: #38bdf8;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  cursor: pointer;
-  align-self: flex-start;
-}
-
-.learnMore:hover {
-  color: #22c55e;
-  text-decoration: underline;
+  height: 60%;
+  border-radius: 0.8rem;
+  margin: 0.8rem 0;
+  object-fit: cover;
+  display: block;
 }
 
 /* Responsive */
@@ -192,6 +200,14 @@
 
   .card-image img {
     width: 100%;
-    max-width: 300px;
+    max-width: 250px;
+  }
+
+  .card-small img {
+    max-width: 100%;
+  }
+
+  .card-actions {
+    justify-content: center; /* Mobile me dono center me */
   }
 }

@@ -16,12 +16,15 @@ import SocialSidebar from './component/pages/SocialSidebar';
 import Login from './component/login/Login.jsx'
 import Signup from './component/signup/Signup.jsx'
 import Card from "../src/component/pages/card/Card"
+import PrivacyPolicy from './component/privacypolicy/PrivacyPolicy.jsx';
+import ScrollToTop from '../src/component/pages/ScrollToTop.jsx';
 
 function App() {
   return (
     <>
       <Rainanimation/> 
      <Router>
+            <ScrollToTop /> 
           <Navbar/>
            
            <SocialSidebar/> 
@@ -34,6 +37,8 @@ function App() {
             <Route path="/login" element={<Login/> } /> 
              <Route path="/Signup" element={<Signup/> } /> 
              <Route path="/category/:name" element={<Card />} />
+             <Route path="/privacyPolicy" element={<PrivacyPolicy/>} />
+             <Route path="/card" element={<Card/>} />
            {/* 404 Page */}
       </Routes>
       <Fotter/>

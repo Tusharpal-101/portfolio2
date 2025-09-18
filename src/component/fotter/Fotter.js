@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom"; // React Router DOM import
 import styles from "../fotter/fotter.module.css";
+
 
 export default function Footer() {
   return (
@@ -16,23 +18,25 @@ export default function Footer() {
 
         <div className={styles.column}>
           <h3>SOCIALS</h3>
-          <a href="#">Instagram</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">GitHub</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
 
         <div className={styles.column}>
           <h3>CONTACT</h3>
           <p>Email: <a href="mailto:tusharpal@email.com">company@email.com</a></p>
-          <p> this number is only demo Phone: +91 98765 43210</p>
+          <p>This number is only demo Phone: +91 98765 43210</p>
         </div>
 
         <div className={styles.column}>
           <h3>PAGES</h3>
-          <a href="#">About</a>
-          <a href="#">Services</a>
-          <a href="#">Portfolio</a>
-          <a href="#">Contact</a>
+          <Link to="/about">About</Link>
+          <Link to="/service">Services</Link>
+          <Link to="/card">Portfolio</Link>
+          <Link to="/contact">Contact</Link>
+          <Link to= "/privacyPolicy">PrivacyPolicy</Link>
+           
         </div>
       </div>
 

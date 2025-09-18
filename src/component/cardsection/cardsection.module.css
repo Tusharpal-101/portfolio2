@@ -157,14 +157,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  
 }
 
 .card-image img {
   width: 100%;
   max-width: 320px;
-  height: auto;
+  height: 60vh;
   border-radius: 1rem;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
 

@@ -30,7 +30,7 @@ export default function Signup() {   // ✅ component ka naam bhi Signup hi rakh
 
           {/* ✅ Links */}
           <div className={styles.links}>
-            <a href="#">Forget Password</a>
+            {/* <a href="#">Forget Password</a> */}
             <Link to="/login" className={styles.linkBtn}>
               Login
             </Link>

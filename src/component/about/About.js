@@ -6,6 +6,9 @@ export default function About() {
     const elCursor = document.querySelector(`.${styles.cursor}`);
     const elPage = document.querySelector(`.${styles.page}`);
 
+    // Agar element na mile to function exit kar jaaye
+    if (!elCursor || !elPage) return;
+
     const lerp = (curr, next, ratio = 0.3) => {
       const delta = next - curr;
       if (Math.abs(delta) < 0.01) return next;
@@ -20,13 +23,16 @@ export default function About() {
       current.y = lerp(current.y, point.y);
       current.scale = lerp(current.scale, point.scale, 0.1);
 
-      elCursor.style.setProperty("--x", point.x);
-      elCursor.style.setProperty("--y", point.y);
-      elCursor.style.setProperty("--scale", point.scale);
+      if (elCursor) {
+        elCursor.style.setProperty("--x", point.x);
+        elCursor.style.setProperty("--y", point.y);
+        elCursor.style.setProperty("--scale", point.scale);
 
-      elCursor.style.setProperty("--lag-x", current.x);
-      elCursor.style.setProperty("--lag-y", current.y);
-      elCursor.style.setProperty("--lag-scale", current.scale);
+        elCursor.style.setProperty("--lag-x", current.x);
+        elCursor.style.setProperty("--lag-y", current.y);
+        elCursor.style.setProperty("--lag-scale", current.scale);
+      }
+
       requestAnimationFrame(update);
     }
 
@@ -47,7 +53,10 @@ export default function About() {
     }
 
     elPage.addEventListener("mousemove", onMove);
-    return () => elPage.removeEventListener("mousemove", onMove);
+
+    return () => {
+      elPage.removeEventListener("mousemove", onMove);
+    };
   }, []);
 
   return (
@@ -62,7 +71,6 @@ export default function About() {
       <div className={styles.app}>
         <header className={styles.header}>
           <div>Freelance Hub</div>
-          
         </header>
 
         <main>

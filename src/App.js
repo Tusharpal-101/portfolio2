@@ -1,49 +1,40 @@
-
-// import './App.css';
 import Navbar from './component/Navbar';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom"; // ✅ sirf ye rakho
 
-
-// import Banner from './component/Banner';
-// import Script from './script';
 import SearchCategories from './component/SearchCategories';
 import Home from './component/pages/Home';
-import Rainanimation from "../src/component/pages/Rainanimation"
+import Rainanimation from "../src/component/pages/Rainanimation";
 import Contact from './component/contact/Contact';
 import About from './component/about/About';
-import Fotter from "./component/fotter/Fotter"
+import Fotter from "./component/fotter/Fotter";
 import SocialSidebar from './component/pages/SocialSidebar';
-import Login from './component/login/Login.jsx'
-import Signup from './component/signup/Signup.jsx'
-import Card from "../src/component/pages/card/Card"
+import Login from './component/login/Login.jsx';
+import Signup from './component/signup/Signup.jsx';
+import Card from "../src/component/pages/card/Card";
 import PrivacyPolicy from './component/privacypolicy/PrivacyPolicy.jsx';
 import ScrollToTop from '../src/component/pages/ScrollToTop.jsx';
 
 function App() {
   return (
     <>
-      <Rainanimation/> 
-     <Router>
-            <ScrollToTop /> 
-          <Navbar/>
-           
-           <SocialSidebar/> 
+      <Rainanimation />
+      <ScrollToTop />
+      <Navbar />
+      <SocialSidebar />
+
       <Routes>
-        <Route path="/" element={<Home/> } /> 
-         {/* <Route path="/about" element={<SearchCategories/> } />  */}
-          <Route path="/contact" element={<Contact/> } /> 
-           <Route path="/about" element={<About/> } /> 
-            <Route path="/service" element={<SearchCategories/> } /> 
-            <Route path="/login" element={<Login/> } /> 
-             <Route path="/Signup" element={<Signup/> } /> 
-             <Route path="/category/:name" element={<Card />} />
-             <Route path="/privacyPolicy" element={<PrivacyPolicy/>} />
-             <Route path="/card" element={<Card/>} />
-           {/* 404 Page */}
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/service" element={<SearchCategories />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/category/:name" element={<Card />} />
+        <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="/card" element={<Card />} />
       </Routes>
-      <Fotter/>
-    </Router>
-     {/* <Script/> */}
+
+      <Fotter />
     </>
   );
 }

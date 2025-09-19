@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom"; 
 import styles from "../component/css/navbar.module.css";
+import { AuthContext } from "../contextapi/AuthContext";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { user, logout } = useContext(AuthContext);
 
   const links = [
     { name: "Home", path: "/" },
@@ -35,11 +37,20 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Right - Signup (Desktop) */}
+        {/* Right (Desktop) */}
         <div className={styles.desktopOnly}>
-          <NavLink to="/login" className={styles.signup}>
-            Sign Up
-          </NavLink>
+          {user ? (
+            <div className={styles.profileMenu}>
+              <span className={styles.userName}>{user.name}</span>
+              <button onClick={logout} className={styles.logoutBtn}>
+                Logout
+              </button>
+            </div>
+          ) : (
+            <NavLink to="/login" className={styles.signup}>
+              Sign Up
+            </NavLink>
+          )}
         </div>
 
         {/* Mobile Hamburger */}
@@ -71,14 +82,29 @@ export default function Navbar() {
             </NavLink>
           ))}
 
-          {/* Mobile Signup */}
-          <NavLink 
-            to="/login" 
-            className={styles.signupMobile} 
-            onClick={() => setOpen(false)}
-          >
-            Sign Up
-          </NavLink>
+          {/* Mobile Signup/Profile */}
+          {user ? (
+            <div className={styles.profileMenu}>
+              <span className={styles.userName}>{user.name}</span>
+              <button
+                onClick={() => {
+                  logout();
+                  setOpen(false);
+                }}
+                className={styles.logoutBtn}
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <NavLink 
+              to="/login" 
+              className={styles.signupMobile} 
+              onClick={() => setOpen(false)}
+            >
+              Sign Up
+            </NavLink>
+          )}
         </div>
       )}
     </nav>

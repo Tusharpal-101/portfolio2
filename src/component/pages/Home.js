@@ -11,6 +11,8 @@ import ShaderCanvas from "../shadecanvas/ShaderCanvas"
 import Card from "./card/Card.js"
 // import Login from '../login/Login.jsx'
 import Faq from "../faq/Faq.jsx"
+import ResetPassword from '../resetpassword/ResetPassword.js'
+import ForgotPassword from '../forgetpassword/ForgotPassword.js'
 // import PrivacyPolicy from '../privacypolicy/PrivacyPolicy.jsx'
 
 const Home = () => {
@@ -25,6 +27,8 @@ const Home = () => {
       {/* <PrivacyPolicy/> */}
       
       <About/>
+      <ResetPassword/>
+      <ForgotPassword/>
       <ShaderCanvas/> 
      
       {/* <Login/>  */}

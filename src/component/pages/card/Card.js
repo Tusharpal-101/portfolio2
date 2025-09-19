@@ -8,11 +8,15 @@ import { cards } from "../card/Carddata";
 const Card = ({ card }) => {
   const cardRef = useRef(null);
 
-  // Framer motion values for tilt
+  // Motion values for tilt
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
 
-  // Stronger glowing shadow effect
+  // Convert tilt values to degrees
+  const rotateXDeg = useTransform(rotateX, (v) => `${v}deg`);
+  const rotateYDeg = useTransform(rotateY, (v) => `${v}deg`);
+
+  // Strong glowing shadow effect
   const boxShadow = useTransform(
     [rotateX, rotateY],
     ([latestX, latestY]) =>
@@ -21,12 +25,13 @@ const Card = ({ card }) => {
   );
 
   const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left; // X inside card
-    const y = e.clientY - rect.top;  // Y inside card
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-    const rotateYValue = ((x / rect.width) - 0.5) * 35; // -17.5 to 17.5 deg
-    const rotateXValue = ((y / rect.height) - 0.5) * -35; // -17.5 to 17.5 deg
+    const rotateYValue = ((x / rect.width) - 0.5) * 35;
+    const rotateXValue = ((y / rect.height) - 0.5) * -35;
 
     rotateX.set(rotateXValue);
     rotateY.set(rotateYValue);
@@ -41,7 +46,12 @@ const Card = ({ card }) => {
     <motion.div
       className={styles.card}
       ref={cardRef}
-      style={{ rotateX, rotateY, boxShadow, perspective: 1200 }}
+      style={{
+        rotateX: rotateXDeg,
+        rotateY: rotateYDeg,
+        boxShadow,
+        perspective: 1200,
+      }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       whileHover={{ scale: 1.07 }}
@@ -74,7 +84,6 @@ const Card = ({ card }) => {
       <div className={styles.content}>
         <h3>{card.title}</h3>
 
-        {/* Subtitle + CODE button */}
         <div className={styles.subtitleRow}>
           <p>{card.subtitle}</p>
           {card.codeLink && (
@@ -89,7 +98,6 @@ const Card = ({ card }) => {
           )}
         </div>
 
-        {/* Technologies / Tags */}
         {card.technologies && card.technologies.length > 0 && (
           <div className={styles.tagsRow}>
             {card.technologies.map((tech, idx) => (
@@ -108,12 +116,15 @@ export default function CardSection() {
   const { name } = useParams();
   const categoryName = (name || "").toLowerCase();
 
-  const categoryMap = {
-    design: "design",
-    development: "web development",
-    marketing: "marketing",
-    writing: "writing",
-  };
+  const categoryMap = useMemo(
+    () => ({
+      design: "design",
+      development: "web development",
+      marketing: "marketing",
+      writing: "writing",
+    }),
+    []
+  );
 
   const filteredCards = useMemo(() => {
     if (!categoryName || categoryName === "all") return cards;
@@ -121,7 +132,7 @@ export default function CardSection() {
     return cards.filter(
       (card) => (card.category || "").toLowerCase() === actualCategory
     );
-  }, [categoryName]);
+  }, [categoryName, categoryMap]);
 
   return (
     <section className={styles.cardSection}>
@@ -139,15 +150,11 @@ export default function CardSection() {
         animate="visible"
         variants={{
           hidden: {},
-          visible: {
-            transition: { staggerChildren: 0.15 },
-          },
+          visible: { transition: { staggerChildren: 0.15 } },
         }}
       >
         {filteredCards.length > 0 ? (
-          filteredCards.map((card) => (
-            <Card key={card.id} card={card} />
-          ))
+          filteredCards.map((card) => <Card key={card.id} card={card} />)
         ) : (
           <p style={{ color: "#fff", fontSize: "1.2rem" }}>
             ⚠ No projects found for this category.
